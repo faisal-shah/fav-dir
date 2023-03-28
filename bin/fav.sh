@@ -3,7 +3,8 @@
 function fav {
     local FAV_DIRECTORY="$HOME/.config/fav-dir"
     local INDEX="$FAV_DIRECTORY/index"
-    local PREVIEW="ls -alh"
+    #local PREVIEW="ls -alh"
+    local PREVIEW="tree -L 1 -a"
 
     function __fav_help() {
         printf "
@@ -79,7 +80,7 @@ Code repository: https://github.com/johngrib/fav-dir
         local TARGET_PATH=$( \
             (printParentsRecursive ; echo '' ; __fav_get_list) \
             | cat \
-            | fzf --preview="echo {} | xargs $PREVIEW" \
+            | fzf --ansi --margin=0% --padding=0% --reverse --height=40% --preview="echo {} | xargs $PREVIEW" \
         );
         echo $TARGET_PATH
     }
@@ -114,4 +115,3 @@ Code repository: https://github.com/johngrib/fav-dir
 
     __fav_main $@
 }
-
